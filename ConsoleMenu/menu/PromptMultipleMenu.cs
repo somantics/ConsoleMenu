@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace ConsoleMenu;
 
-public delegate bool BusinessFunctionMultiple(string[] input, out string result);
 public class PromptMultipleMenu(string? message, string? prompt, BusinessFunctionMultiple action) : Menu(message, prompt)
 {
     protected int? amount;

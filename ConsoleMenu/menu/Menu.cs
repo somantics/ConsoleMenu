@@ -1,6 +1,10 @@
 
 namespace ConsoleMenu;
 
+public delegate bool BusinessFunctionNoInput(out string result);
+public delegate bool BusinessFunction(string input, out string result);
+public delegate bool BusinessFunctionMultiple(string[] input, out string result);
+
 public abstract class Menu(string? message, string? prompt)
 {
 

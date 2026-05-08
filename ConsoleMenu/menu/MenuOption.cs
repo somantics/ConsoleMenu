@@ -26,4 +26,12 @@ public record MenuOption(string key, Action<IInputService, IOutputService, IMenu
     {
         return (input, output, client) => client.QueueMenu(submenu);
     }
+    public static Action<IInputService, IOutputService, IMenuClient> CreateOutputCommand(BusinessFunctionNoInput logic)
+    {
+        return (input, output, client) =>
+        {
+            if (logic(out string message)) 
+                output.PrintMessage(message);
+        };
+    }
 }

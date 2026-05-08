@@ -2,7 +2,6 @@ using System;
 
 namespace ConsoleMenu;
 
-public delegate bool BusinessFunction(string input, out string result);
 
 public class PromptMenu(string? message, string? prompt, BusinessFunction action) : Menu(message, prompt)
 {
