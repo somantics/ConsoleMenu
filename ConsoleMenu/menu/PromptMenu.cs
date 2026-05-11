@@ -14,7 +14,15 @@ public class PromptMenu(string? message, string? prompt, BusinessFunction action
             bool success = action.Invoke(message, out string result);
             output.PrintMessage(result);
 
-            if (success) client.CloseMenu();
+            if (success)
+            {
+                client.CloseMenu();
+                
+            }
+            else
+            {
+                CheckFailedAttempts(client);
+            }
         }
         else
         {

@@ -48,7 +48,7 @@ public abstract class Menu(string? message, string? prompt)
     {
         _failedAttempts ++;
 
-        if (_failedAttempts > MaxFailedAttempts)
+        if (_failedAttempts >= MaxFailedAttempts)
         {
             client.CloseMenu();
         }

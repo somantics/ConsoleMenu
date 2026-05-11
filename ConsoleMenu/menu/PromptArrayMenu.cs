@@ -11,7 +11,14 @@ public class PromptArrayMenu(string? message, string? prompt, BusinessFunctionMu
             bool success = action.Invoke(message, out string result);
             output.PrintMessage(result);
 
-            if (success) client.CloseMenu();
+            if (success)
+            {
+                client.CloseMenu();
+            }
+            else
+            {
+                CheckFailedAttempts(client);
+            }
         }
         else
         {
