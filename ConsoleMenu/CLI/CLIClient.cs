@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace ConsoleMenu.CLI;
 
-public class CLIClient(Menu StartMenu) : IMenuClient
+public class CLIClient(Menu.Menu StartMenu) : IMenuClient
 {
     readonly private CLIParser parser = new();
     readonly private CLIPrinter output = new();
-    private Stack<Menu> menus = new([StartMenu]);
+    private Stack<Menu.Menu> menus = new([StartMenu]);
 
     public void Run()
     {
@@ -17,7 +17,7 @@ public class CLIClient(Menu StartMenu) : IMenuClient
         }
     }
 
-    public void QueueMenu(Menu menu)
+    public void QueueMenu(Menu.Menu menu)
     {
         menus.Push(menu);
     }
