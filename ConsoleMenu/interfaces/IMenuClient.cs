@@ -2,7 +2,7 @@ namespace ConsoleMenu;
 
 public interface IMenuClient
 {
-    void QueueMenu(Menu menu);
+    void QueueMenu(Menu.Menu menu);
     void CloseMenu();
 
 }

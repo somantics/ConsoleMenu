@@ -1,9 +1,9 @@
 
-namespace ConsoleMenu;
+namespace ConsoleMenu.Menu;
 
 public delegate bool BusinessFunctionNoInput(out string result);
 public delegate bool BusinessFunction(string input, out string result);
-public delegate bool BusinessFunctionMultiple(string[] input, out string result);
+public delegate bool BusinessFunctionMultipleInput(string[] input, out string result);
 
 public abstract class Menu(string? message, string? prompt)
 {
@@ -21,4 +21,23 @@ public abstract class Menu(string? message, string? prompt)
     }
 
     public abstract void Run(IInputService input, IOutputService output, IMenuClient client);
+
+
+    public static void Close(IInputService input, IOutputService output, IMenuClient client)
+    {
+        client.CloseMenu();
+    }
+
+    public static Action<IInputService, IOutputService, IMenuClient> CreateOpenSubmenu(Menu submenu)
+    {
+        return (input, output, client) => client.QueueMenu(submenu);
+    }
+    public static Action<IInputService, IOutputService, IMenuClient> CreateOutputCommand(BusinessFunctionNoInput logic)
+    {
+        return (input, output, client) =>
+        {
+            if (logic(out string message)) 
+                output.PrintMessage(message);
+        };
+    }
 }

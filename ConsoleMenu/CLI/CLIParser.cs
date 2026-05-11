@@ -32,4 +32,18 @@ public class CLIParser: IInputService
         input = "";
         return false;
     }
+
+    public bool ParseStringMultiple(out string[] input)
+    {
+        string? rawInput = Console.ReadLine();
+
+        if (rawInput is not null)
+        {
+            input = rawInput.Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            return true;
+        }
+
+        input = [];
+        return false;
+    }
 }

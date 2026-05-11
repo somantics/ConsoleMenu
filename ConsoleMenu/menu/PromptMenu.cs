@@ -1,6 +1,6 @@
 using System;
 
-namespace ConsoleMenu;
+namespace ConsoleMenu.Menu;
 
 
 public class PromptMenu(string? message, string? prompt, BusinessFunction action) : Menu(message, prompt)

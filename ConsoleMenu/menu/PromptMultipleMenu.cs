@@ -1,40 +1,31 @@
-using System.Collections.Generic;
 
-namespace ConsoleMenu;
 
-public class PromptMultipleMenu(string? message, string? prompt, BusinessFunctionMultiple action) : Menu(message, prompt)
+namespace ConsoleMenu.Menu;
+
+public class PromptMultipleMenu(string? message, string? prompt, string? repeatPrompt, BusinessFunctionMultipleInput action) : Menu(message, prompt)
 {
-    protected int? amount;
-    protected List<string> inputs = [];
+    protected int? _amount;
+    protected List<string> _inputs = [];
 
     public override void Run(IInputService input, IOutputService output, IMenuClient client)
     {
-        if (amount is null)
+        if (_amount is null)
         {
             PromptAmount(input, output);
         }
         
-        output.PrintMessage($"Ange ålder (besökare {inputs.Count + 1}): ");
-        if (input.ParseString(out string message))
-        {
-            inputs.Add(message);
-        }
-        else
-        {
-            output.PrintMessage("Invalid input, please enter a string.");
-        }
+        PromptDataPoint(input, output);
 
-        if (inputs.Count >= amount)
+        if (_inputs.Count >= _amount)
         {
-            
-            bool success = action.Invoke(inputs.ToArray(), out string result);
-            output.PrintMessage(result);
+            bool success = RunBusinessLogic(output);
             ResetInput();
 
             if (success)
             {
                 client.CloseMenu();
             }
+            
         }
     }
 
@@ -47,12 +38,32 @@ public class PromptMultipleMenu(string? message, string? prompt, BusinessFunctio
             return;
         }
 
-        amount = result;
+        _amount = result;
+    }
+
+    protected void PromptDataPoint(IInputService input, IOutputService output)
+    {
+        output.PrintCommandPrompt(repeatPrompt ?? "Enter data: ");
+        if (input.ParseString(out string message))
+        {
+            _inputs.Add(message);
+        }
+        else
+        {
+            output.PrintMessage("Invalid input, please enter a string.");
+        }
+    }
+
+    protected bool RunBusinessLogic(IOutputService output)
+    {
+        bool success = action.Invoke(_inputs.ToArray(), out string result);
+        output.PrintMessage(result);
+        return success;
     }
 
     protected void ResetInput()
     {
-        amount = null;
-        inputs = [];
+        _amount = null;
+        _inputs = [];
     }
 }

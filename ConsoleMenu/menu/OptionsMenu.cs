@@ -1,20 +1,18 @@
-using System;
-using System.Collections.Generic;
 
-namespace ConsoleMenu;
+namespace ConsoleMenu.Menu;
 public class OptionsMenu(string? message, string? prompt) : Menu(message, prompt)
 {
-    private List<MenuOption> _options = [];
+    protected List<MenuOption> _options = [];
     public List<MenuOption> Options
     {
         get { return _options; }
     }
 
 
-    public void AddCommand(string key, string description, Action<IInputService, IOutputService, IMenuClient> action)
+    public void AddOption(string key, string description, Action<IInputService, IOutputService, IMenuClient> action)
     {
-        MenuOption newCommand = new(key, action, description);
-        Options.Add(newCommand);
+        MenuOption newOption = new(key, action, description);
+        Options.Add(newOption);
     }
 
     protected void AwaitOption(IInputService input, IOutputService output, IMenuClient client)
@@ -24,7 +22,7 @@ public class OptionsMenu(string? message, string? prompt) : Menu(message, prompt
         {
             foreach (MenuOption option in Options)
             {
-                if (option.key.Equals(optionText, StringComparison.OrdinalIgnoreCase))
+                if (option.Key.Equals(optionText, StringComparison.OrdinalIgnoreCase))
                 {
                     option.Invoke(input, output, client);
                     break;
