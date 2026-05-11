@@ -8,6 +8,9 @@ public delegate bool BusinessFunctionMultipleInput(string[] input, out string re
 public abstract class Menu(string? message, string? prompt)
 {
 
+    protected int _failedAttempts;
+    protected const int MaxFailedAttempts = 3;
+
     readonly private string? welcomeMessage = message;
     public string? WelcomeMessage 
     {
@@ -39,5 +42,15 @@ public abstract class Menu(string? message, string? prompt)
             if (logic(out string message)) 
                 output.PrintMessage(message);
         };
+    }
+
+    protected void CheckFailedAttempts(IMenuClient client)
+    {
+        _failedAttempts ++;
+
+        if (_failedAttempts > MaxFailedAttempts)
+        {
+            client.CloseMenu();
+        }
     }
 }

@@ -16,6 +16,7 @@ public class PromptArrayMenu(string? message, string? prompt, BusinessFunctionMu
         else
         {
             output.PrintMessage("Invalid input, please enter a string.");
+            CheckFailedAttempts(client);
         }
     }
 }

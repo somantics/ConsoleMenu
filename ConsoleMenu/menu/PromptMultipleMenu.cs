@@ -11,10 +11,10 @@ public class PromptMultipleMenu(string? message, string? prompt, string? repeatP
     {
         if (_amount is null)
         {
-            PromptAmount(input, output);
+            PromptAmount(input, output, client);
         }
         
-        PromptDataPoint(input, output);
+        PromptDataPoint(input, output, client);
 
         if (_inputs.Count >= _amount)
         {
@@ -25,23 +25,28 @@ public class PromptMultipleMenu(string? message, string? prompt, string? repeatP
             {
                 client.CloseMenu();
             }
+            else
+            {
+                CheckFailedAttempts(client);
+            }
             
         }
     }
 
-    protected void PromptAmount(IInputService input, IOutputService output)
+    protected void PromptAmount(IInputService input, IOutputService output, IMenuClient client)
     {
         output.PrintCommandPrompt(this);
         if (!input.ParseAmount(out int result))
         {
             output.PrintMessage("Not a valid amount.");
+            CheckFailedAttempts(client);
             return;
         }
 
         _amount = result;
     }
 
-    protected void PromptDataPoint(IInputService input, IOutputService output)
+    protected void PromptDataPoint(IInputService input, IOutputService output, IMenuClient client)
     {
         output.PrintCommandPrompt(repeatPrompt ?? "Enter data: ");
         if (input.ParseString(out string message))
@@ -51,6 +56,7 @@ public class PromptMultipleMenu(string? message, string? prompt, string? repeatP
         else
         {
             output.PrintMessage("Invalid input, please enter a string.");
+            CheckFailedAttempts(client);
         }
     }
 
@@ -65,5 +71,6 @@ public class PromptMultipleMenu(string? message, string? prompt, string? repeatP
     {
         _amount = null;
         _inputs = [];
+        _failedAttempts = 0;
     }
 }
