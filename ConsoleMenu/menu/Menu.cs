@@ -5,22 +5,22 @@ public delegate bool BusinessFunctionNoInput(out string result);
 public delegate bool BusinessFunction(string input, out string result);
 public delegate bool BusinessFunctionMultipleInput(string[] input, out string result);
 
-public abstract class Menu(string? message, string? prompt)
+public abstract class Menu(string? Message, string? Prompt)
 {
 
     protected int _failedAttempts;
     protected const int MaxFailedAttempts = 3;
 
-    readonly private string? welcomeMessage = message;
+    readonly private string? _welcomeMessage = Message;
     public string? WelcomeMessage 
     {
-        get { return welcomeMessage; }
+        get { return _welcomeMessage; }
     }
 
-    readonly private string? commandPrompt = prompt;
+    readonly private string? _commandPrompt = Prompt;
     public string? CommandPrompt 
     {
-        get { return commandPrompt; }
+        get { return _commandPrompt; }
     }
 
     public abstract void Run(IInputService input, IOutputService output, IMenuClient client);

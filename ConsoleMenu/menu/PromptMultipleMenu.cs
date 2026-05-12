@@ -2,7 +2,7 @@
 
 namespace ConsoleMenu.Menu;
 
-public class PromptMultipleMenu(string? message, string? prompt, string? repeatPrompt, BusinessFunctionMultipleInput action) : Menu(message, prompt)
+public class PromptMultipleMenu(string? Message, string? Prompt, string? RepeatPrompt, BusinessFunctionMultipleInput Action) : Menu(Message, Prompt)
 {
     protected int? _amount;
     protected List<string> _inputs = [];
@@ -48,7 +48,7 @@ public class PromptMultipleMenu(string? message, string? prompt, string? repeatP
 
     protected void PromptDataPoint(IInputService input, IOutputService output, IMenuClient client)
     {
-        output.PrintCommandPrompt(repeatPrompt ?? "Enter data: ");
+        output.PrintCommandPrompt(RepeatPrompt ?? "Enter data: ");
         if (input.ParseString(out string message))
         {
             _inputs.Add(message);
@@ -62,7 +62,7 @@ public class PromptMultipleMenu(string? message, string? prompt, string? repeatP
 
     protected bool RunBusinessLogic(IOutputService output)
     {
-        bool success = action.Invoke(_inputs.ToArray(), out string result);
+        bool success = Action.Invoke(_inputs.ToArray(), out string result);
         output.PrintMessage(result);
         return success;
     }

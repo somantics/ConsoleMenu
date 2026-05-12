@@ -4,26 +4,26 @@ namespace ConsoleMenu.CLI;
 
 public class CLIClient(Menu.Menu StartMenu) : IMenuClient
 {
-    readonly private CLIParser parser = new();
-    readonly private CLIPrinter output = new();
-    private Stack<Menu.Menu> menus = new([StartMenu]);
+    readonly private CLIParser _parser = new();
+    readonly private CLIPrinter _output = new();
+    readonly private Stack<Menu.Menu> _menus = new([StartMenu]);
 
     public void Run()
     {
-        while(menus.Count > 0)
+        while(_menus.Count > 0)
         {
-            var currentMenu = menus.Peek();
-            currentMenu.Run(parser, output, this);
+            var currentMenu = _menus.Peek();
+            currentMenu.Run(_parser, _output, this);
         }
     }
 
     public void QueueMenu(Menu.Menu menu)
     {
-        menus.Push(menu);
+        _menus.Push(menu);
     }
 
     public void CloseMenu()
     {
-        menus.Pop();
+        _menus.Pop();
     }
 }

@@ -1,6 +1,6 @@
 namespace ConsoleMenu.Menu;
 
-public class PromptArrayMenu(string? message, string? prompt, BusinessFunctionMultipleInput action) : Menu(message, prompt)
+public class PromptArrayMenu(string? Message, string? Prompt, BusinessFunctionMultipleInput Action) : Menu(Message, Prompt)
 {
 
     public override void Run(IInputService input, IOutputService output, IMenuClient client)
@@ -8,7 +8,7 @@ public class PromptArrayMenu(string? message, string? prompt, BusinessFunctionMu
         output.PrintCommandPrompt(this);
         if (input.ParseStringMultiple(out string[] message))
         {
-            bool success = action.Invoke(message, out string result);
+            bool success = Action.Invoke(message, out string result);
             output.PrintMessage(result);
 
             if (success)

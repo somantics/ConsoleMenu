@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace ConsoleMenu.Menu;
 
-public class ActionsMenu(string? message, string? prompt): Menu(message, prompt)
+public class ActionsMenu(string? Message, string? Prompt): Menu(Message, Prompt)
 {
     protected List<MenuCommand> _commands = [];
     public List<MenuCommand> Commands
@@ -34,7 +34,6 @@ public class ActionsMenu(string? message, string? prompt): Menu(message, prompt)
         output.PrintCommandPrompt(this);
         if (!input.ParseStringMultiple(out string[] userInput))
         {
-            //complain
             return;
         }
 

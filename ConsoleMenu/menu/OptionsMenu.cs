@@ -1,6 +1,6 @@
 
 namespace ConsoleMenu.Menu;
-public class OptionsMenu(string? message, string? prompt) : Menu(message, prompt)
+public class OptionsMenu(string? Message, string? Prompt) : Menu(Message, Prompt)
 {
     protected List<MenuOption> _options = [];
     public List<MenuOption> Options
