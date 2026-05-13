@@ -2,6 +2,12 @@ using System.Collections.Generic;
 
 namespace ConsoleMenu.CLI;
 
+/// <summary>
+/// Concrete implementation of a IMenuClient for a commandline interface. 
+/// Provides all necessary input and output services through CLIPrinter and
+/// CLIParser classes. 
+/// </summary>
+/// <param name="StartMenu">The menu that will be displayed in the main loop. </param>
 public class CLIClient(Menu.Menu StartMenu) : IMenuClient
 {
     readonly private CLIParser _parser = new();

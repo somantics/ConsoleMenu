@@ -2,6 +2,11 @@ using System;
 
 namespace ConsoleMenu.CLI;
 
+/// <summary>
+/// Concrete implementation of IInputService to go with CLIClient class.
+/// Responsible for parsing raw input into strings with minimal cleanup,
+/// not for type validation. 
+/// </summary>
 public class CLIParser: IInputService
 {
     

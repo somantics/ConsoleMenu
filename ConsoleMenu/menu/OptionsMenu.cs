@@ -1,5 +1,14 @@
 
 namespace ConsoleMenu.Menu;
+
+/// <summary>
+/// Menu subclass for main menus that want to open submenus.
+/// Stores options as MenuOptions that encase a MenuAction that gets
+/// invoked when the corresponding command is entered. 
+/// Use AddOption after instanciation to build up a complete menu.
+/// </summary>
+/// <param name="Message">Welcome message printed when the menu is displayed. </param>
+/// <param name="Prompt">Prompt for user input. </param>
 public class OptionsMenu(string? Message, string? Prompt) : Menu(Message, Prompt)
 {
     protected List<MenuOption> _options = [];
@@ -8,8 +17,7 @@ public class OptionsMenu(string? Message, string? Prompt) : Menu(Message, Prompt
         get { return _options; }
     }
 
-
-    public void AddOption(string key, string description, Action<IInputService, IOutputService, IMenuClient> action)
+    public void AddOption(string key, string description, MenuAction action)
     {
         MenuOption newOption = new(key, action, description);
         Options.Add(newOption);

@@ -2,6 +2,10 @@ using System.Text;
 using ConsoleMenu.Menu;
 namespace ConsoleMenu.CLI;
 
+/// <summary>
+/// Concrete implementation of IOutputService to go with CLIClient class.
+/// Simply prints using Console.Write functionality.
+/// </summary>
 public class CLIPrinter : IOutputService
 {
 

@@ -1,5 +1,13 @@
 namespace ConsoleMenu.Menu;
 
+/// <summary>
+/// Menu class for prompting the user for multiple pieces of data in one line.
+/// The input will be split into an array of strings, with empty entries
+/// removed and whitespace characters trimmed.
+/// </summary>
+/// <param name="Message">Not used currently. </param>
+/// <param name="Prompt">Prompt for user input. </param>
+/// <param name="Action">Business logic to apply to the input. </param>
 public class PromptArrayMenu(string? Message, string? Prompt, BusinessFunctionMultipleInput Action) : Menu(Message, Prompt)
 {
 
